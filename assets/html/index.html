@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" ng-app = 'frontendApp'>
+<head>
+	<meta charset="utf-8">
+	<base href="/index.html">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title ng-bind="'Trö - ' + title">Trö</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="http://designedbytro.com/workspace/assets/css/troe.css" rel="stylesheet" type="text/css" />
+	<link href="animate.min.css" rel="stylesheet" type="text/css" />
+	<link rel="apple-touch-icon" sizes="57x57" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="http://designedbytro.com/workspace/assets/favicon/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="http://designedbytro.com/workspace/assets/favicon/android-icon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="http://designedbytro.com/workspace/assets/favicon/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="http://designedbytro.com/workspace/assets/favicon/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="http://designedbytro.com/workspace/assets/favicon/favicon-16x16.png" />
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.11/angular-filter.min.js
+
+	"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.min.js"></script>
+	<script type="text/javascript" src="showdown.js"></script>
+	<script type="text/javascript" src="markdown.js"></script>
+	<link href="xeditable.css" rel="stylesheet" />
+	<script type="text/javascript" src="xeditable.min.js"></script>
+	<script type="text/javascript" src="cloudinary-angular.min.js"></script>
+	<script type="text/javascript" src="checklist-model.js"></script>
+	<script src="shared.js"></script>
+	<script src="app.js"></script>
+	<script src="//localhost:35729/livereload.js"></script>
+	<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="container" class="background">
+		<div id="topbar">
+			<a href="http://designedbytro.com/">
+				<div class="push-left space all-15 small-20 tiny-20">
+					<img src="http://res.cloudinary.com/designedbytro/image/upload/assets/tro_final.png" />
+				</div>
+			</a>
+			<menu />
+		</div>
+		<hero ng-if = "title != 'Home'" hero = "http://designedbytro.com/workspace/assets/images/classes-header.jpg" title = {{title}}></hero>
+		<div ng-view></div>
+		<footer />
+	</div>
+</body>
+</html>

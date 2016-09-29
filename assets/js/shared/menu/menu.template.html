@@ -1,0 +1,37 @@
+<a href="#" id="myModalTrigger" class="ink-button push-right space" ng-click="$ctrl.menuStatus = true">
+	<span class="fa fa-bars"></span>
+</a>
+<div class="ink-shade nojs-modal" ng-show="$ctrl.menuStatus">
+	<div class="ink-modal" id="modal_menu">
+		<div class="modal-header">
+			<button class="modal-close ink-dismiss" ng-click="$ctrl.menuStatus = false"></button>
+		</div>
+		<div class="modal-body" id="modalContent">
+			<div id="menu" class="ink-navigation">
+				<ul class="menu vertical align-center yellow">
+					<li ng-repeat="menuItem in $ctrl.menu">
+						<a href="{{menuItem.link}}" class="extralarge uppercase" ng-click="$ctrl.menuStatus = false">{{menuItem.name}}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+  <style>
+    .ink-shade.nojs-modal {
+      opacity: 1;
+      display: block;
+      overflow-y: auto;
+    }
+    
+    .ink-shade.nojs-modal .ink-modal {
+      position: static;
+      
+      width: 100%;
+      
+      height: 100%;
+      margin: auto;
+      
+      overflow: hidden;
+    }
+  </style>

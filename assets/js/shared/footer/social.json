@@ -1,0 +1,17 @@
+[
+	{
+		"name": "Facebook",
+		"link": "https://www.facebook.com/DesignedByTRo",
+		"icon": "fa-facebook"
+	},
+	{
+		"name": "Instagram",
+		"link": "https://instagram.com/designedbyTRo",
+		"icon": "fa-instagram"
+	},
+	{
+		"name": "Pinterest",
+		"link": "https://www.pinterest.com/designedbyTRo",
+		"icon": "fa-pinterest-square"
+	}
+]

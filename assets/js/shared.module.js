@@ -1,0 +1,11 @@
+angular.
+module('sharedAssets',[
+	'data',
+	'calc',
+	'update',
+	'mailchimp',
+	'menu',
+	'hero',
+	'footer',
+	'classFunctions'
+]);

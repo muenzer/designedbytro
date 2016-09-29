@@ -1,0 +1,27 @@
+<div id="footer">
+  <div class="ink-grid bottom-padding align-center">
+    <div class="column-group">
+      <a href="http://designedbytro.com/" class="all-100 small-100 tiny-100 vertical-space">
+        <div class="all-15 small-25 tiny-25 push-center">
+          <img src="http://res.cloudinary.com/designedbytro/image/upload/assets/tro_final.png" />
+        </div>
+      </a>
+      <a href="http://designedbytro.com/about/directions" class="all-50 small-100 tiny-100 push-center">
+        <p>Located at the Magazin<br />Dammstrasse 50a, 4142 Münchenstein</p>
+      </a>
+    </div>
+  </div>
+  <div class="ink-grid vertical-padding" id="social_logos">
+    <div class="column-group push-center">
+      <div class="all-40 small-100 tiny-100">
+        <div class="column-group align-center">
+          <div class="all-33" ng-repeat="socialItem in $ctrl.social">
+            <a href="{{socialItem.link}}" target="_blank">
+              <span class="fa {{socialItem.icon}} extralarge"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

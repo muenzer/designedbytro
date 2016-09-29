@@ -1,0 +1,27 @@
+<form name="MailchimpSubscriptionForm" class="validate ink-form">
+  <div class="column-group" ng-hide="mailchimp.result === 'success'">
+    <div class="control-group all-100 space">
+      <label for="email">Join our Mailing List</label>
+      <div class="control append-button" role="signup">
+        <span>
+          <input type="email" name="email" ng-model="mailchimp.EMAIL" placeholder="Enter email address" required>
+          <input class="hidden" type="hidden" ng-model="mailchimp.username" ng-init="mailchimp.username='designedbytro'">
+          <input class="hidden" type="hidden" ng-model="mailchimp.dc" ng-init="mailchimp.dc='us11'">
+          <input class="hidden" type="hidden" ng-model="mailchimp.u" ng-init="mailchimp.u='953f38c5d924b3b0521a07c9d'">
+          <input class="hidden" type="hidden" ng-model="mailchimp.id" ng-init="mailchimp.id='5071b2ff54'">
+        </span>
+    <button class="ink-button blue" ng-disabled="MailchimpSubscriptionForm.$invalid" ng-click="$ctrl.addSubscription(mailchimp)">Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Show error message if MailChimp unsuccessfully added the email to the list. -->
+  <div ng-show="mailchimp.result === 'error'" ng-cloak>
+    <span ng-bind-html="mailchimp.errorMessage"></span>
+  </div>
+
+  <!-- Show success message if MailChimp returned successfully. -->
+  <div ng-show="mailchimp.result === 'success'" ng-cloak>
+    <span ng-bind-html="mailchimp.successMessage"></span>
+  </div>
+</form>
