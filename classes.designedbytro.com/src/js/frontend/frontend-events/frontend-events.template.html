@@ -1,0 +1,13 @@
+<div ng-repeat='event in $ctrl.events' ng-class-odd="'white'">
+	<a name="{{event.id}}"></a>
+	<div class="ink-grid">
+		<div class="column-group push-middle" ng-if="$even">
+			<frontend-classes-image image="{{event.image}}" class="all-50 tiny-100 small-100 align-center"></frontend-classes-image>
+			<frontend-classes-summary summary="event" class="all-50 tiny-100 small-100 align-center"></frontend-classes-summary>
+		</div>
+		<div class="column-group push-middle" ng-if="$odd">
+			<frontend-classes-summary summary="event" class="all-50 tiny-100 small-100 align-center"></frontend-classes-summary>
+			<frontend-classes-image image="{{event.image}}" class="all-50 tiny-100 small-100 align-center"></frontend-classes-image>
+		</div>
+	</div>
+</div>

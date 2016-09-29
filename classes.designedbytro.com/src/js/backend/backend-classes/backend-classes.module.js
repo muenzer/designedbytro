@@ -1,0 +1,1 @@
+angular.module('backendClasses', ['data', 'cloudinary', 'checklist-model']);

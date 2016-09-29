@@ -1,0 +1,15 @@
+angular.
+module('frontendApp',[
+	'ngRoute',
+	'angular.filter',
+	'ngSanitize',
+	'markdown',
+	'xeditable',
+	'checklist-model',
+	'sharedAssets',
+	'frontendClasses',
+	'frontendEvents',
+	'frontendCancellation',
+	'backendApp',
+	'cloudinary'
+]);

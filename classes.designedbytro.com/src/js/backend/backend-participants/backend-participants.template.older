@@ -1,0 +1,34 @@
+Select Class: 
+<select name="classes" ng-model="classFilter" ng-options="class.title for class in $ctrl.classes">
+</select>
+
+
+<div ng-model="classFilter">
+<h1>{{class.title}}</h1>
+<table class="ink-table hover">
+	<thead>
+		<tr>
+			<th>Session<th>
+			<th>Date</th>
+			<th>Name</th>
+			<th>EmailAddress</th>
+			<th>Payment Status</th>
+			<th/>
+			<th>Number of People</th>
+			<th>Number of Children</th>
+		</tr>
+	</thead>
+	<tbody ng-repeat="session in classFilter.sessions">
+		<tr ng-repeat="item in $ctrl.items | filter: {CourseSession: classFilter.id + '#' + session.id} | filter: {Type:'!Disabled'} | filter:{Date:'!!'} | orderBy:'Date'" ng-form="participantForm">
+				<td>{{session.title}}</td>
+				<td>{{item.Date | date: 'fullDate'}}
+				<td>{{item.Name}}</td>
+				<td>{{item.EmailAddress}}</td>
+				<td><select ng-model="item.newStatus" ng-options="item for item in $ctrl.statusOptions"></select></td>
+				<td><button type="button" ng-click="$ctrl.update(item)">Update</button></td>
+				<td>{{item.Number}}</td>
+				<td>{{item.Children}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

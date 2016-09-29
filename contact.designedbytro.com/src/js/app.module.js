@@ -1,0 +1,10 @@
+angular.
+module('frontendApp',[
+	'ngRoute',
+	'angular.filter',
+	'ngSanitize',
+	'markdown',
+	'sharedAssets',
+	'cloudinary',
+	'contactForm'
+]);

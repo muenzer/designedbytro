@@ -1,0 +1,12 @@
+<div>
+	<h2>{{ :: $ctrl.summary.title}}</h2>
+	<div>
+		<div ng-bind-html="$ctrl.summary.content | markdown"></div>
+		<ul class="unstyled" ng-repeat="class in $ctrl.classes | filter:{category: $ctrl.summary.key} | filter:{disabled:'!true'} | orderBy:'earliestDate'">
+			<a href="classes/{{class.id}}" style="color: white;">
+				<li class="ink-badge blue">{{class.title}}</li>
+			</a>
+		</ul>
+		<frontend-events-listing ng-if="$ctrl.summary.event"></frontend-events-listing>
+	</div>
+</div>

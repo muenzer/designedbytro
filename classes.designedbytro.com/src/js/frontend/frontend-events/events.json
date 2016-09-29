@@ -1,0 +1,23 @@
+[
+	{
+		"title" : "Corporate Team Building",
+		"key" : 0,
+		"id" : "corporate",
+		"image" : "team_building.png",
+		"content" : "There are a variety of team building projects using clay that we can tailor to the goals of your group. Strengths Finding through totem poles, Problem Solving with pebble bowls and Exercising Creativity with image transfer are just a few examples. We are happy to facilitate the workshop or work with external coaches to create a dynamic and productive session. The sessions can be held at our atelier or we can come to your workplace.\n\n[Contact us for possible dates and project ideas.](http://designedbytro.com/about/contact)"
+	},
+	{
+		"title" : "Birthday Parties",
+		"key" : 0,
+		"id" : "birthday",
+		"image" : "birthday.png",
+		"content" : "Children’s birthday parties are available on Saturday afternoons. We can accommodate between 4 and 10 children ages 5 and up. Prices range from 200chf to 400chf per 2 hour session and include decorations, snacks and drinks. Our close proximity to Grün 80 park is perfect for an extended afternoon.\n\n[Contact us for possible dates and project ideas.](http://designedbytro.com/about/contact)"
+	},
+	{
+		"title" : "Private Groups",
+		"key" : 0,
+		"id" : "private",
+		"image" : "private_events.png",
+		"content" : "We are happy to hold specially scheduled workshops for private groups. Gather a group of friends for a special girls night out, bring your club for a fun outing or create a memorable activity for visiting family.  Workshops can be customized to your interests and drinks & snacks can be provided.\n\n[Contact us for possible dates and project ideas.](http://designedbytro.com/about/contact)"
+	}
+]

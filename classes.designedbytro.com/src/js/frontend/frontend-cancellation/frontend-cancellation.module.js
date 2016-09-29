@@ -1,0 +1,2 @@
+angular.
+module('frontendCancellation', ['ngRoute']);

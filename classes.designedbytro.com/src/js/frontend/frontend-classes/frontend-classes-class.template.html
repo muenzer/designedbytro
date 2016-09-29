@@ -1,0 +1,71 @@
+<div>
+  <div class="ink-grid white space padding">
+    <div class="column-group horizontal-gutters">
+      <div class="all-100 top-space">
+        <h4 class="ink-badge lt_blue large">{{ :: $ctrl.class.title}}</h4>
+      </div>
+      <div class="all-65 left-space">
+        <div></div>
+        <cl-image class="push-left right-space" public-id="{{ :: $ctrl.class.images.photo}}" format="jpg">
+          <cl-transformation height="100" width="100" crop="scale"></cl-transformation>
+        </cl-image>
+        <description ng-bind-html="$ctrl.class.description | markdown"></description>
+      </div>
+      <div class="all-30">
+        <h4>Details</h4>
+        <ul class="unstyled">
+          <li>
+            Price: {{ :: $ctrl.class.price | currency:'CHF' }}
+          </li>
+          <li>
+            Duration: {{ :: $ctrl.class.duration}}</li>
+          </ul>
+        </div>
+      </div>
+      <form id="registration-form" class="ink-form registration" ng-hide="$ctrl.alert">
+        <div class="control-group required">
+          <label>Name</label>
+          <div class="control">
+            <input ng-model="$ctrl.class.participant.Name" name="Name" type="text" />
+          </div>
+          <label>Email Address</label>
+          <div class="control">
+            <input ng-model="$ctrl.class.participant.EmailAddress" name="EmailAddress" type="text" />
+          </div>
+          <label>Number of Participants</label>
+          <div class="control">
+            <input ng-model="$ctrl.class.participant.Number" name="Number" type="number" min="1" />
+          </div>
+          <label>Phone Number</label>
+          <div class="control">
+            <input ng-model="$ctrl.class.participant.PhoneNumber" name="PhoneNumber" type="text" />
+          </div>
+        </div>
+        <div class="all-100">
+          <table class="ink-table">
+            <thead>
+              <tr>
+                <th class="align-left">Session</th>
+                <th class="align-left">Start Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="session in $ctrl.sessions | filter:{disabled:'!true'}" | orderBy: ['date', 'title']">
+                <td><input type="radio" ng-model="$ctrl.class.session" ng-value="session" style="position:relative;margin:0.5em;"/>{{session.title}}
+                  <span ng-if="session.waitlist"  class="ink-badge lt_blue large">Waitlist</span></td>
+                  <td>
+                    <ul class="unstyled">{{session.date | date:'fullDate'}}</ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <input ng-click="$ctrl.submit($ctrl.class)" id="form-button" type="submit" value="Submit" class="blue" />
+        </form>
+        <div id="alert-box" class="ink-alert block info" role="alert" ng-show="$ctrl.alert">
+          <button class="ink-dismiss">x</button>
+          <h4>Thank You For Registering</h4>
+          <p>You should receive an email shortly with details on the class.</p>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,24 @@
+<table class="ink-table hover">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>EmailAddress</th>
+			<th>Payment Status</th>
+			<th>Due Date</th>
+			<th>Number of People</th>
+			<th>Number of Children</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in $ctrl.participants" ng-form="participantForm">
+				<td>{{item.Name}}</td>
+				<td>{{item.EmailAddress}}</td>
+				<td><select ng-model="item.PaymentStatus" ng-options="item for item in $ctrl.statusOptions" ng-change="$ctrl.update(item)"></select></td>
+				<!-- <td><button type="button" ng-click="$ctrl.update(item)">Update</button></td> -->
+				<td ng-style="item.overdue">{{item.DueDate | date : 'fullDate'}}</td>
+				<td>{{item.Number || 0}}</td>
+				<td>{{item.Children || 0}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

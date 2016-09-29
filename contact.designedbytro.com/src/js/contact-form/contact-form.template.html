@@ -1,0 +1,46 @@
+<div class="ink-grid space">
+  <div class="column-group gutters">
+    <div class="all-50 small-100 tiny-100">
+      <h3>Email</h3>
+      <form class="ink-form" enctype="multipart/form-data" ng-hide="$ctrl.alert">
+        <div class="control-group required">
+          <label>Name</label>
+          <div class="control">
+            <input ng-model="$ctrl.contact.name" type="text">
+          </div>
+          <label>Email Address</label>
+          <div class="control">
+            <input ng-model="$ctrl.contact.emailaddress" type="text">
+          </div>
+        </div>
+        <div class="control-group">
+          <label>Message</label>
+          <div class="control">
+            <textarea ng-model="$ctrl.contact.message" rows="5" cols="50"></textarea>
+          </div>
+          <input type="submit" value="Submit" ng-click="$ctrl.submit()">
+        </div>
+      </form>
+      <div id="alert-box" class="ink-alert block info" role="alert" ng-show="$ctrl.alert">
+        <button class="ink-dismiss">x</button>
+        <h4>Thank You For Your Message</h4>
+        <p>We will respond to you soon.</p>
+      </div>
+    </div>
+    <div class="all-50 small-100 tiny-100">
+      <h3>Mailing Address</h3>
+      <p>
+        Meghan Howard<br>
+        Eulerstrasse 41<br>
+        4051 Basel<br>
+        Schweiz
+      </p>
+      <h3>Atelier Location</h3>
+      <p>
+        Dammstrasse 50a<br>
+        4142 Münchenstein<br>
+        Schweiz
+      </p>
+    </div>
+  </div>
+</div>

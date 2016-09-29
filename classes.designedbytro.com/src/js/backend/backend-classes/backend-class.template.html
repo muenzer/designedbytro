@@ -1,0 +1,112 @@
+<div ng-if="$ctrl.class" class="ink-grid">
+	<div class="column-group">
+		<div class="all-100">
+			<a href="#" editable-text="$ctrl.class.title" e-label="Title" onaftersave="$ctrl.update()">
+				<h2>{{$ctrl.class.title || 'no title'}}</h2>
+			</a>
+		</div>
+		<div class="all-100">
+			<a href="#" ng-click="$ctrl.imageUpload('photo')" >
+				<cl-image public-id="{{$ctrl.class.images.photo}}" format="jpg">
+					<cl-transformation height="80" crop="scale"></cl-transformation>
+				</cl-image>
+				<h2>{{$ctrl.class.images.photo || 'no main image'}}</h2>
+			</a>
+		</div>
+		<div class="all-100">
+			<a href="#" editable-textarea="$ctrl.class.description" e-rows="7" e-cols="120" onaftersave="$ctrl.update()">
+				{{ ($ctrl.class.description || 'no description') | markdown }}
+			</a>
+		</div>
+		<div class="all-100">
+			<a href="#" editable-number="$ctrl.class.price" e-label="Price" onaftersave="$ctrl.update()">{{($ctrl.class.price || 'no price') + " (CHF)"}}</a>
+		</div>
+		<div class="all-100">
+			<a href="#" editable-text="$ctrl.class.duration" e-title="Duration" onaftersave="$ctrl.update()">
+				{{$ctrl.class.duration || 'no duration'}}
+			</a>
+		</div>
+		<div class="all-100">
+		  <a href="#" editable-checklist="$ctrl.class.category" e-ng-options="cat.key as cat.title for cat in $ctrl.categories" e-title="Category" onaftersave="$ctrl.update()">
+		    {{ $ctrl.class.category || 'no category'}}
+		  </a>
+		</div>
+		<div class="all-100">
+			<a href="#" editable-radiolist="$ctrl.class.type" e-ng-options="type for type in $ctrl.types" e-title="Class Type" onaftersave="$ctrl.update()">
+			  {{ $ctrl.class.type || 'no class type' }}
+			</a>
+		</div>
+		<div class="all-100">
+			<a href="#" editable-checkbox="$ctrl.class.children" e-title="Children?" onaftersave="$ctrl.update()">
+				{{ $ctrl.class.children && "Class with Children" || "Class without Children" }}
+			</a>
+		</div>
+		<div class="all-100">
+			<a href="#" editable-checkbox="$ctrl.class.disabled" e-title="Disabled?" onaftersave="$ctrl.update()">
+				{{ $ctrl.class.disabled && "Disabled" || "Enabled" }}
+			</a>
+		</div>
+	</div>
+
+	<table class="ink-table">
+		<thead>
+			<tr>
+				<th></th>
+				<th class="align-left">Session</th>
+				<th class="align-left">Start Date</th>
+				<th class="align-left">Size</th>
+				<th class="align-left">Registered</th>
+				<th class="align-left">Disabled</th>
+				<th class="align-left">Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat-start="session in $ctrl.class.sessions">
+				<td><button ng-disabled="session.participants.length == 0" class="fa fa-caret-right ink-button" ng-hide="$ctrl.panel == $index" ng-click="$ctrl.panel = $index"></button><button class="fa fa-caret-down ink-button" ng-show="$ctrl.panel == $index" ng-click="$ctrl.panel = -1"></button></td>
+				<td>
+					<span editable-text="session.title" e-name="Session" e-form="rowform">
+						{{ session.title || 'empty' }}
+					</span>
+				</td>
+				<td>
+					<span editable-date="session.date" e-name="Session" e-form="rowform" e-size="55" onshow="session.date = $ctrl.dateObject(session.date)" onbeforesave = "$data = $data.getTime()">
+						{{ (session.date | date: "dd-MM-yyyy") || 'empty' }}
+					</span>
+				</td>
+				<td>
+					<span editable-number="session.size" e-name="Session" e-form="rowform">
+						{{ session.size || 'size' }}
+					</span>
+				</td>
+				<td>
+					{{ session.totalSize}}
+				</td>
+				<td>
+					<span editable-checkbox="session.disabled" e-form="rowform" class="align-center">
+					  <i ng-show="session.disabled" class='fa fa-check'></i>
+					</span>
+				</td>
+				<td>
+					<form editable-form name="rowform" onaftersave="$ctrl.update()" ng-show="rowform.$visible" shown="inserted == session">
+						<button type="submit" ng-disabled="rowform.$waiting">
+							save
+						</button>
+						<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+							cancel
+						</button>
+					</form>
+					<div class="buttons" ng-show="!rowform.$visible">
+						<button ng-click="rowform.$show()">edit</button>
+						<button ng-click="$ctrl.removeSession($index)">delete</button>
+					</div>
+				</td>
+			</tr>
+			<tr ng-repeat-end ng-show="$ctrl.panel == $index">
+				<td colspan="6">
+					<backend-participants participants="session.participants" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<button ng-click="$ctrl.addSession()">Add session</button>
+</div>

@@ -1,0 +1,44 @@
+angular.
+module('backendParticipants').
+component('backendParticipants', {
+  templateUrl: 'backend-participants.template.html',
+  controller: ['dataFactory', 'STATUS', '$scope', 'update', function ParticipantsController(dataFactory, STATUS, $scope, update) {
+    var self = this;
+
+    self.items = dataFactory.participants.query();
+
+    self.classes = dataFactory.classes.query();
+
+    self.data = update.status;
+
+    //self.sessions = dataFactory.sessions.query();
+
+    self.items.$promise.then(function () {
+      for(var i in self.items) {
+       self.items[i].newStatus = self.items[i].PaymentStatus;
+     }
+   });
+
+    self.classes.$promise.then(function () {
+      $scope.classFilter = self.classes[0];
+    });
+
+    self.statusOptions = STATUS.OPTIONS;
+
+    self.update = function update(item) {
+      if(item.newStatus == item.PaymentStatus) {
+        return;
+      }
+
+      if(item.newStatus == 'Delete') {
+        dataFactory.participants.delete({coursesession: item.CourseSession, emailaddress: item.EmailAddress});
+        return;
+      }
+
+      var data = self.data(item, item.newStatus);
+
+      dataFactory.participants.update({coursesession:item.CourseSession,
+        emailaddress: item.EmailAddress}, data);
+    };
+  }]
+});

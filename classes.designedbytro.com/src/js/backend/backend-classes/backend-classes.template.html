@@ -1,0 +1,36 @@
+<table ng-if="$ctrl.classes" class="ink-table hover">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Disabled</th>
+			<th>Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="class in $ctrl.classes">
+			<td><a href="backend/classes/{{class.id}}">{{class.title  || 'No Title'}}</a></td>
+			<td>
+				<span editable-checkbox="class.disabled" e-form="rowform" class="align-center">
+				  <i ng-show="class.disabled" class='fa fa-check'></i>
+				</span>
+			</td>
+			<td>
+				<form editable-form name="rowform" onaftersave="$ctrl.update()" ng-show="rowform.$visible" shown="inserted == class">
+					<button type="submit" ng-disabled="rowform.$waiting">
+						save
+					</button>
+					<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+						cancel
+					</button>
+				</form>
+				<div class="buttons" ng-show="!rowform.$visible">
+					<button ng-click="rowform.$show()">edit</button>
+					<button ng-click="$ctrl.removeClass($index)">delete</button>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><input type="text" ng-model="newclass"></input><button ng-click="$ctrl.add(newclass)">Add class</button></td>
+		</tr>
+	</tbody>
+</table>
