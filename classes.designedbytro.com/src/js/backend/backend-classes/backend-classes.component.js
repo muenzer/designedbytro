@@ -2,45 +2,20 @@ angular.
 module('backendClasses').
 component('backendClasses', {
   templateUrl: 'backend-classes.template.html',
-  controller: ['dataFactory', '$routeParams', '$q', function ParticipantsController(dataFactory, $routeParams, $q) {
+  controller: ['dataFactory', '$q', 'classesService', function ParticipantsController(dataFactory, $q, classesService) {
     var self = this;
 
     dataFactory.getCategories().then(function(response) {
       self.categories = response.data;
     });
 
-    self.classid = $routeParams.classid;
+    self.classes = classesService.get();
 
-    if(typeof(self.classid) !== 'undefined') {
-      self.class = dataFactory.classes.get({id:self.classid});
-    } else {
-      self.classes = dataFactory.classes.query();
-    }
-
-    self.add = function(newClassTitle) {
-      newclass = dataFactory.classes.save({title: newClassTitle});
-
-      newclass.$promise.then(function(response) {
-        self.classes.push(newclass);
-      });
-
-    };
-
-    self.removeClass = function(index) {
-      title = self.classes[index].title || "No Title";
-      response = confirm("Delete " + title + "?");
-
-      if(!response) {
-        return;
-      }
-
-      var classid = self.classes[index].id;
-      self.classes.splice(index, 1);
-      dataFactory.classes.delete({id:classid});
-    };
+    self.add = classesService.addClass;
+    self.removeClass = classesService.removeClass;
 
     self.update = function() {
-      self.class.$update();
+      classesService.updateClass(self.class);
     };
 
     self.dateObject = function(date) {

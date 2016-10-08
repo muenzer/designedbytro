@@ -25,61 +25,61 @@ component('frontendClassesSummary', {
   		summary: '<'
   	},
 	templateUrl: "frontend-classes-summary.template.html",
-	controller: ['dataFactory', 'classFunctions', function ClassesController(dataFactory, classFunctions) {
+	controller: ['classesService', function ClassesController(classesService) {
 			var self = this;
 
-			self.classes = dataFactory.classes.query();
-			self.classes.$promise.then(function(response) {
-				classFunctions.date(self.classes);
-			});
+			self.$onInit = function () {
+				self.classes = classesService.get();
+			};
+
 		}]
 });
 angular.
 module('frontendClasses').
 component('frontendClass', {
 	    templateUrl: "frontend-classes-class.template.html",
-	    controller: ['$routeParams', 'dataFactory', '$q', 'update', 'classFunctions', function ClassesController($routeParams, dataFactory, $q, update, classFunctions) {
-			var self = this;
-			var classid = $routeParams.classid;
+	    controller: ClassController
+		});
 
-			self.class = dataFactory.classes.get({id:classid});
+ClassController.$inject = ['$routeParams', 'dataFactory', 'update', 'classFunctions', 'classesService'];
+function ClassController($routeParams, dataFactory, update, classFunctions, classesService) {
+	var self = this;
+	var classid = $routeParams.classid;
 
-			self.class.$promise.then(function(response){
-				classFunctions.participants(classid, self.class.sessions);
-				self.sessions = self.class.sessions;
-			});
+	classesService.get().$promise.then(function () {
+		self.class = classesService.getClass(classid);
+		classFunctions.participants(classid, self.class.sessions);
+		self.sessions = self.class.sessions;
+	});
 
-			self.alert = false;
+	self.alert = false;
 
-			self.submit = function(classItem) {
-				var participant = new dataFactory.participants(classItem.participant);
+	self.submit = function(classItem) {
+		var participant = new dataFactory.participants(classItem.participant);
 
-				participant.CourseSession = classItem.id + "#" + classItem.session.id;
-				participant.Cost = classItem.price;
-				participant.ClassName = classItem.title;
-				participant.SessionName = classItem.session.title;
-				participant.Date = classItem.session.date;
-				participant.Type = classItem.type;
+		participant.CourseSession = classItem.id + "#" + classItem.session.id;
+		participant.Cost = classItem.price;
+		participant.ClassName = classItem.title;
+		participant.SessionName = classItem.session.title;
+		participant.Date = classItem.session.date;
+		participant.Type = classItem.type;
 
-				console.log(participant);
+		participant.$save(function() {
+			var newStatus;
+			if(classItem.session.waitlist) {
+				newStatus = 'Wait List';
+			} else {
+				newStatus = 'Registered';
+			}
 
-				participant.$save(function() {
-					var newStatus;
-					if(classItem.session.waitlist) {
-						newStatus = 'Wait List';
-					} else {
-						newStatus = 'Registered';
-					}
+			data = update.status(participant.participants, newStatus);
 
-					data = update.status(participant.participants, newStatus);
+			dataFactory.participants.update({
+				coursesession: participant.participants.CourseSession,
+					emailaddress: participant.participants.EmailAddress
+			}, data);
+		});
 
-					dataFactory.participants.update({
-						coursesession: participant.participants.CourseSession,
-					    emailaddress: participant.participants.EmailAddress
-					}, data);
-				});
-
-				self.alert = true;
-			};
-		}]
-});
+		self.alert = true;
+	};
+}
