@@ -1,5 +1,6 @@
 angular.module('classFunctions')
-.service('classFunctions', ['dataFactory', function(dataFactory) {
+.service('classFunctions', ['dataFactory', 'participantsFactory', function(dataFactory, participantsFactory) {
+  console.log("classFunctions");
   this.date = function(classes) {
     classes.forEach(function(item) {
       item.earliestDate = Infinity;
@@ -40,8 +41,11 @@ angular.module('classFunctions')
     angular.forEach(sessions, function(session){
 
       var classsession = classid + "#" + session.id;
+
+      var participants = new participantsFactory(classsession);
+
       //load participants
-      session.participants = dataFactory.participants.query({coursesession:classsession});
+      session.participants = participants.get();
 
       session.participants.$promise.then(function(response) {
         //count total participants, expect unenrolled

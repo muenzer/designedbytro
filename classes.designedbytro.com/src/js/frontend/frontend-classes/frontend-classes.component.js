@@ -41,14 +41,14 @@ component('frontendClass', {
 	    controller: ClassController
 		});
 
-ClassController.$inject = ['$routeParams', 'dataFactory', 'update', 'classFunctions', 'classesService'];
-function ClassController($routeParams, dataFactory, update, classFunctions, classesService) {
+ClassController.$inject = ['$routeParams', 'dataFactory', 'update', 'classesService'];
+function ClassController($routeParams, dataFactory, update, classesService) {
 	var self = this;
 	var classid = $routeParams.classid;
 
 	classesService.get().$promise.then(function () {
 		self.class = classesService.getClass(classid);
-		classFunctions.participants(classid, self.class.sessions);
+		classesService.getParticipants(classid, self.class.sessions);
 		self.sessions = self.class.sessions;
 	});
 

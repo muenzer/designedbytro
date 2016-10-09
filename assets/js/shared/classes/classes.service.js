@@ -1,8 +1,8 @@
 angular.module('sharedAssets').
 service('classesService', classesService);
 
-classesService.$inject = ['dataFactory'];
-function classesService(dataFactory) {
+classesService.$inject = ['dataFactory', 'participantsFactory'];
+function classesService(dataFactory, participantsFactory) {
   var service = this;
 
   //download classes
@@ -77,7 +77,7 @@ function classesService(dataFactory) {
   };
 
   //remove session
-  self.removeSession = function(classItem, index) {
+  service.removeSession = function(classItem, index) {
     title = classItem.sessions[index].title;
     response = confirm("Delete " + title + "?");
 
@@ -87,6 +87,25 @@ function classesService(dataFactory) {
 
     classItem.sessions.splice(index, 1);
     service.update(classItem);
+  };
+
+  service.getParticipants = function(classid, sessions) {
+    angular.forEach(sessions, function(session){
+
+      var classsession = classid + "#" + session.id;
+
+      var participants = new participantsFactory(classsession);
+
+      //load participants
+      session.participants = participants.get();
+
+      session.participants.$promise.then(function(response) {
+        //count total participants, expect unenrolled
+        session.totalSize = countParticipants(session.participants);
+        //check for waitlist
+        session.waitlist = waitlist(session.totalSize, session.size);
+      });
+    });
   };
 
 
@@ -128,4 +147,22 @@ function classesService(dataFactory) {
       });
     });
   };
+
+  function countParticipants(participants) {
+    var count = participants.filter(function(item) {
+       return item.PaymentStatus != "Unenrolled";
+    }).reduce( function( acc, cur ) {
+      return acc + parseInt(cur.Number);
+    }, 0 );
+
+    return count;
+  }
+
+  function waitlist(totalSize, size) {
+    if(totalSize >= size) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
